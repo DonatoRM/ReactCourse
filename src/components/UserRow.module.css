@@ -1,0 +1,23 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	border: 1px solid gray;
+	border-radius: 1rem;
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+.name {
+	font-weight: bold;
+}
+.active {
+	color: green;
+}
+.role {
+	text-transform: uppercase;
+	font-size: 0.75rem;
+	background-color: #61dafb;
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.5rem;
+}

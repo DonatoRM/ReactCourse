@@ -3,18 +3,18 @@ import UsersList from './components/UsersList';
 const USERS = [
 	{
 		name: 'Pablo Castellanos',
-		active: 'Activo',
-		role: 'Profesor'
+		active: true,
+		role: 'teacher'
 	},
 	{
 		name: 'Jose Miguel Fernández',
-		active: 'Activo',
-		role: 'Profesor'
+		active: true,
+		role: 'teacher'
 	},
 	{
 		name: 'Javier López',
-		active: 'Activo',
-		role: 'Alumno'
+		active: false,
+		role: 'student'
 	}
 ];
 const App = () => (

@@ -1,6 +1,7 @@
 import style from './UserRole.module.css';
 
 const UserRole = ({ role }) => {
+	console.log('      - UserRole');
 	const ROLE_STYLES = {
 		teacher: ['Profesor', style.teacher],
 		student: ['Alumno', style.student],

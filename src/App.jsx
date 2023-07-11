@@ -1,4 +1,3 @@
-import Title from './components/Title';
 import UsersList from './components/UsersList';
 const USERS = [
 	{
@@ -17,9 +16,5 @@ const USERS = [
 		role: 'student'
 	}
 ];
-const App = () => (
-	<UsersList users={USERS}>
-		<Title>Listado de usuarios</Title>
-	</UsersList>
-);
+const App = () => <UsersList users={USERS} />;
 export default App;

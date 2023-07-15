@@ -66,7 +66,7 @@ const useUsers = initialUsers => {
 		setUsers(newUsers);
 	};
 
-	return { users, toogleUserActive: toggleUserActive };
+	return { users, toggleUserActive };
 };
 
 const filterUsersByName = (users, search) => {

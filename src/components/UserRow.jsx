@@ -2,7 +2,7 @@ import UserRole from './UserRole';
 import style from './UserRow.module.css';
 import UserStatus from './UserStatus';
 
-const UserRow = ({ id, name, active, role, toogleUserActive }) => (
+const UserRow = ({ id, name, active, role, togleUserActive }) => (
 	<div className={style.wrapper}>
 		<div className={style.name}>
 			<span>{name}</span>
@@ -14,7 +14,7 @@ const UserRow = ({ id, name, active, role, toogleUserActive }) => (
 			<UserRole role={role} />
 		</div>
 		<div className={style.action}>
-			<button onClick={() => toogleUserActive(id)}>
+			<button onClick={() => togleUserActive(id)}>
 				{active ? 'Desactivar' : 'Activar'}
 			</button>
 		</div>

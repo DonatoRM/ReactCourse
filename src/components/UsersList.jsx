@@ -1,11 +1,11 @@
 import { useState } from 'react';
+import style from './UsersList.module.css';
 import UsersListFilters from './UsersListFilters';
 import UsersListRows from './UsersListRows';
-import style from './UsersList.module.css';
 const UsersList = ({ initialUsers }) => {
-	const { search, onlyActive, sortBy, setSearch, setOnlyActive, setSortBy } =
-		UseFilters();
-	const { users, toogleUserActive } = useUsers(initialUsers);
+	const { search, onlyActive, sortBy, ...setFiltersFunctions } = useFilters();
+
+	const { users, toggleUserActive } = useUsers(initialUsers);
 
 	let usersFiltered = filterActiveUsers(users, onlyActive);
 	usersFiltered = filterUsersByName(usersFiltered, search);
@@ -16,19 +16,59 @@ const UsersList = ({ initialUsers }) => {
 			<h1>Listado de usuarios</h1>
 			<UsersListFilters
 				search={search}
-				setSearch={setSearch}
 				onlyActive={onlyActive}
-				setOnlyActive={setOnlyActive}
 				sortBy={sortBy}
-				setSortBy={setSortBy}
+				{...setFiltersFunctions}
 			/>
 			<UsersListRows
 				users={usersFiltered}
-				toogleUserActive={toogleUserActive}
+				toggleUserActive={toggleUserActive}
 			/>
 		</div>
 	);
 };
+
+const useFilters = () => {
+	const [filters, setFilters] = useState({
+		search: '',
+		onlyActive: false,
+		sortBy: 0
+	});
+
+	const setSearch = search => {
+		setFilters({ ...filters, search });
+	};
+	const setOnlyActive = onlyActive => {
+		setFilters({ ...filters, onlyActive });
+	};
+	const setSortBy = sortBy => {
+		setFilters({ ...filters, sortBy });
+	};
+	return {
+		...filters,
+		setSearch,
+		setOnlyActive,
+		setSortBy
+	};
+};
+
+const useUsers = initialUsers => {
+	const [users, setUsers] = useState(initialUsers);
+
+	const toggleUserActive = userId => {
+		const newUsers = [...users];
+
+		const userIndex = newUsers.findIndex(user => user.id === userId);
+		if (userIndex === -1) return;
+
+		newUsers[userIndex].active = !newUsers[userIndex].active;
+
+		setUsers(newUsers);
+	};
+
+	return { users, toogleUserActive: toggleUserActive };
+};
+
 const filterUsersByName = (users, search) => {
 	if (!search) return [...users];
 
@@ -57,44 +97,6 @@ const sortUsers = (users, sortBy) => {
 		default:
 			return sortedUsers;
 	}
-};
-const UseFilters = () => {
-	const [filters, setFilters] = useState({
-		search: '',
-		onlyActive: false,
-		sortBy: 0
-	});
-	const { search, onlyActive, sortBy } = filters;
-	const setSearch = () => {
-		setFilters({ ...filters, search });
-	};
-	const setOnlyActive = () => {
-		setFilters({ ...filters, onlyActive });
-	};
-	const setSortBy = () => {
-		setFilters({ ...filters, sortBy });
-	};
-	return {
-		...filters,
-		setSearch,
-		setOnlyActive,
-		setSortBy
-	};
-};
-
-const useUsers = initialUsers => {
-	const [users, setUsers] = useState(initialUsers);
-
-	const toogleUserActive = userId => {
-		const newUsers = [...users];
-		const userIndex = newUsers.findIndex(user => user.id === userId);
-		if (userIndex === -1) return;
-
-		newUsers[userIndex].active = !newUsers[userIndex].active;
-
-		setUsers(newUsers);
-	};
-	return { users, toogleUserActive };
 };
 
 export default UsersList;

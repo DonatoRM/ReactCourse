@@ -2,9 +2,10 @@ import { useState } from 'react';
 import UsersListFilters from './UsersListFilters';
 import UsersListRows from './UsersListRows';
 import style from './UsersList.module.css';
-const UsersList = ({ users }) => {
+const UsersList = ({ initialUsers }) => {
 	const { search, onlyActive, sortBy, setSearch, setOnlyActive, setSortBy } =
 		UseFilters();
+	const { users, toogleUserActive } = useUsers(initialUsers);
 
 	let usersFiltered = filterActiveUsers(users, onlyActive);
 	usersFiltered = filterUsersByName(usersFiltered, search);
@@ -21,7 +22,10 @@ const UsersList = ({ users }) => {
 				sortBy={sortBy}
 				setSortBy={setSortBy}
 			/>
-			<UsersListRows users={usersFiltered} />
+			<UsersListRows
+				users={usersFiltered}
+				toogleUserActive={toogleUserActive}
+			/>
 		</div>
 	);
 };
@@ -76,6 +80,21 @@ const UseFilters = () => {
 		setOnlyActive,
 		setSortBy
 	};
+};
+
+const useUsers = initialUsers => {
+	const [users, setUsers] = useState(initialUsers);
+
+	const toogleUserActive = userId => {
+		const newUsers = [...users];
+		const userIndex = newUsers.findIndex(user => user.id === userId);
+		if (userIndex === -1) return;
+
+		newUsers[userIndex].active = !newUsers[userIndex].active;
+
+		setUsers(newUsers);
+	};
+	return { users, toogleUserActive };
 };
 
 export default UsersList;

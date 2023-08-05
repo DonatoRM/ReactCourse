@@ -4,6 +4,7 @@ import UsersListRows from './UsersListRows';
 import { useFilters } from '../lib/hooks/useFilters';
 import UsersListPagination from './UsersListPagination';
 import { useUsers } from '../lib/hooks/useUsers';
+import InputTextAsync from './forms/InputTextAsync';
 
 const UsersList = () => {
 	const {

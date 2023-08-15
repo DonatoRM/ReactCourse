@@ -3,7 +3,7 @@ import style from './UserRole.module.css';
 
 const ROLE_STYLES = {
 	[USER_ROLES.TEACHER]: ['Profesor', style.teacher],
-	[USER_ROLES.OTHER]: ['Alumno', style.student],
+	[USER_ROLES.STUDENT]: ['Alumno', style.student],
 	[USER_ROLES.OTHER]: ['Otro', style.other]
 };
 

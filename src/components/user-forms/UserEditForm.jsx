@@ -6,10 +6,12 @@ import { USER_ROLES } from '../../constants/userRoles';
 import InputCheckbox from '../forms/InputCheckbox';
 import Button from '../buttons/Button';
 import { useEditForm } from '../../lib/hooks/useEditForm';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { updateUser } from '../../lib/api/userApi';
+import { UserFormsContext } from '../../lib/contexts/UserFormsContext';
 
-const UserEditForm = ({ onSuccess, user }) => {
+const UserEditForm = () => {
+	const { currentUser, onSuccess } = useContext(UserFormsContext);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const {
 		username,
@@ -21,14 +23,14 @@ const UserEditForm = ({ onSuccess, user }) => {
 		setRole,
 		setActive,
 		isFormInvalid
-	} = useEditForm(user);
+	} = useEditForm(currentUser);
 	return (
 		<form
 			onSubmit={ev =>
 				handleSubmit(
 					ev,
 					{
-						id: user.id,
+						id: currentUser.id,
 						name: name.value,
 						username: username.value,
 						role,
@@ -53,7 +55,7 @@ const UserEditForm = ({ onSuccess, user }) => {
 					label='Username'
 					placeholder='johndoe'
 					success={
-						username.value !== user.username &&
+						username.value !== currentUser.username &&
 						!username.loading &&
 						!username.error
 					}

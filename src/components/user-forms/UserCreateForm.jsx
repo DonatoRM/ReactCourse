@@ -6,10 +6,12 @@ import { USER_ROLES } from '../../constants/userRoles';
 import InputCheckbox from '../forms/InputCheckbox';
 import Button from '../buttons/Button';
 import { useCreateForm } from '../../lib/hooks/useCreateForm';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { createUser } from '../../lib/api/userApi';
+import { UserFormsContext } from '../../lib/contexts/UserFormsContext';
 
-const UserCreateForm = ({ onSuccess }) => {
+const UserCreateForm = () => {
+	const { onSuccess } = useContext(UserFormsContext);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const { username, name, setUsername, setName, isFormInvalid } =
 		useCreateForm();

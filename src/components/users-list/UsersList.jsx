@@ -7,8 +7,11 @@ import { useUsers } from '../../lib/hooks/useUsers';
 import UserFormContainer from '../user-forms/UserFormContainer';
 import { getUsersToDisplay } from '../../lib/users/filterUsers';
 import UserFormsProviders from '../providers/UserFormsProvider';
+import UsersListViewSelector from './UsersListViewSelector';
+import { useState } from 'react';
 
 const UsersList = () => {
+	const [view, setView] = useState(true);
 	const {
 		filters,
 		pagination,
@@ -30,11 +33,13 @@ const UsersList = () => {
 			<h1 className={style.title}>Listado de usuarios</h1>
 			<UserFormsProviders resetFilters={resetFilters} reloadUsers={reloadUsers}>
 				<UsersListFilters {...filters} {...filtersSetters} />
+				<UsersListViewSelector view={view} setView={setView} />
 				<UserFormContainer />
 				<UsersListRows
 					users={paginatedUsers}
 					error={usersError}
 					loading={usersLoading}
+					view={view}
 				/>
 			</UserFormsProviders>
 			<UsersListPagination

@@ -2,7 +2,7 @@ import GridIcon from '../icons/GridIcon';
 import ListIcon from '../icons/ListIcon';
 import style from './UsersListViewSelector.module.css';
 
-const UsersListViewSelector = ({ view: showRowsFormat, setShowRowsFormat }) => (
+const UsersListViewSelector = ({ showRowsFormat, setShowRowsFormat }) => (
 	<div className={style.wrapper}>
 		<button onClick={() => setShowRowsFormat(false)} disabled={!showRowsFormat}>
 			<GridIcon className={style.icon} />

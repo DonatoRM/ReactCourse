@@ -13,8 +13,7 @@ import { UserFormsContext } from '../../lib/contexts/UserFormsContext';
 const UserCreateForm = () => {
 	const { onSuccess } = useContext(UserFormsContext);
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const { username, name, setUsername, setName, isFormInvalid } =
-		useCreateForm();
+	const { username, name, dispatchFormValues, isFormInvalid } = useCreateForm();
 	return (
 		<form
 			onSubmit={ev =>
@@ -28,7 +27,9 @@ const UserCreateForm = () => {
 					placeholder='John Doe'
 					error={name.error}
 					value={name.value}
-					onChange={ev => setName(ev.target.value)}
+					onChange={ev =>
+						dispatchFormValues({ type: 'name_changed', value: ev.target.value })
+					}
 				></InputText>
 				<InputTextAsync
 					className={style.input}
@@ -38,7 +39,12 @@ const UserCreateForm = () => {
 					loading={username.loading}
 					error={username.error}
 					value={username.value}
-					onChange={ev => setUsername(ev.target.value)}
+					onChange={ev =>
+						dispatchFormValues({
+							type: 'username_changed',
+							value: ev.target.value
+						})
+					}
 				></InputTextAsync>
 			</div>
 			<div className={style.row}>

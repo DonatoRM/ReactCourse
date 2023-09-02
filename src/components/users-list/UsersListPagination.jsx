@@ -6,15 +6,19 @@ import { PAGINATION } from '../../constants/pagination';
 const UsersListPagination = ({
 	page,
 	itemsPerPage,
-	setPage,
-	setItemsPerPage,
+	dispatchFilters,
 	totalUsers
 }) => (
 	<div className={style.wrapper}>
 		<div className={style.itemsPerPage}>
 			<Select
 				value={itemsPerPage}
-				onChange={ev => setItemsPerPage(Number(ev.target.value))}
+				onChange={ev =>
+					dispatchFilters({
+						type: 'items_per_page_changed',
+						value: Number(ev.target.value)
+					})
+				}
 			>
 				{PAGINATION.ITEMS_PER_PAGE_VALUES.map(value => (
 					<option key={value} value={value}>
@@ -27,7 +31,9 @@ const UsersListPagination = ({
 		<PageSelector
 			page={page}
 			totalPages={Math.ceil(totalUsers / itemsPerPage)}
-			setPage={setPage}
+			setPage={newPage =>
+				dispatchFilters({ type: 'page_changed', value: newPage })
+			}
 		/>
 	</div>
 );

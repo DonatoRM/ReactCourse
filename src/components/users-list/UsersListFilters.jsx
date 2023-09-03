@@ -7,7 +7,6 @@ import Button from '../buttons/Button';
 import { useContext } from 'react';
 import { UserFormsContext } from '../../lib/contexts/UserFormsContext';
 import { USER_FORMS } from '../../constants/userForms';
-import { FILTERS_ACTIONS } from '../../constants/filtersActions';
 import {
 	onlyActiveChanged,
 	searchChanged,

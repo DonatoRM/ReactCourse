@@ -7,7 +7,6 @@ import UserFormContainer from '../user-forms/UserFormContainer';
 import UserFormsProviders from '../providers/UserFormsProvider';
 import UsersListViewSelector from './UsersListViewSelector';
 import { useReducer, useState } from 'react';
-import { FILTERS_ACTIONS } from '../../constants/filtersActions';
 import {
 	FILTERS_INITIAL_STATE,
 	filtersReducer

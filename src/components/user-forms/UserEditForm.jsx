@@ -9,7 +9,12 @@ import { useEditForm } from '../../lib/hooks/useEditForm';
 import { useContext, useState } from 'react';
 import { updateUser } from '../../lib/api/userApi';
 import { UserFormsContext } from '../../lib/contexts/UserFormsContext';
-import { EDIT_FORM_ACTIONS } from '../../constants/editFormActions';
+import {
+	activeChanged,
+	nameChanged,
+	rolChanged,
+	usernameChanged
+} from '../../lib/actions/editFormActions';
 
 const UserEditForm = () => {
 	const { currentUser, onSuccess } = useContext(UserFormsContext);
@@ -40,12 +45,7 @@ const UserEditForm = () => {
 					placeholder='John Doe'
 					error={name.error}
 					value={name.value}
-					onChange={ev =>
-						dispatchFormValues({
-							type: EDIT_FORM_ACTIONS.NAME,
-							value: ev.target.value
-						})
-					}
+					onChange={ev => dispatchFormValues(nameChanged(ev.target.value))}
 				></InputText>
 				<InputTextAsync
 					className={style.input}
@@ -60,23 +60,16 @@ const UserEditForm = () => {
 					error={username.error}
 					value={username.value}
 					onChange={ev =>
-						dispatchFormValues({
-							type: EDIT_FORM_ACTIONS.USERNAME,
-							value: ev.target.value,
-							currentUsername: currentUser.username
-						})
+						dispatchFormValues(
+							usernameChanged(ev.target.value, currentUser.username)
+						)
 					}
 				></InputTextAsync>
 			</div>
 			<div className={style.row}>
 				<Select
 					value={role}
-					onChange={ev =>
-						dispatchFormValues({
-							type: EDIT_FORM_ACTIONS.ROLE,
-							value: ev.target.value
-						})
-					}
+					onChange={ev => dispatchFormValues(rolChanged(ev.target.value))}
 				>
 					<option value={USER_ROLES.TEACHER}>Profesor</option>
 					<option value={USER_ROLES.STUDENT}>Alumno</option>
@@ -86,10 +79,7 @@ const UserEditForm = () => {
 					<InputCheckbox
 						checked={active}
 						onChange={ev =>
-							dispatchFormValues({
-								type: EDIT_FORM_ACTIONS.ACTIVE,
-								value: ev.target.checked
-							})
+							dispatchFormValues(activeChanged(ev.target.checked))
 						}
 					/>
 					<span>¿Activo?</span>

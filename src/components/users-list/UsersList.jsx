@@ -1,19 +1,25 @@
 import style from './UsersList.module.css';
 import UsersListFilters from './UsersListFilters';
 import UsersListRows from './UsersListRows';
-import { useFilters } from '../../lib/hooks/useFilters';
 import UsersListPagination from './UsersListPagination';
 import { useUsers } from '../../lib/hooks/useUsers';
 import UserFormContainer from '../user-forms/UserFormContainer';
 import UserFormsProviders from '../providers/UserFormsProvider';
 import UsersListViewSelector from './UsersListViewSelector';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import { FILTERS_ACTIONS } from '../../constants/filtersActions';
+import {
+	FILTERS_INITIAL_STATE,
+	filtersReducer
+} from '../../lib/reducers/filtersReducer';
 
 const UsersList = () => {
 	const [showRowsFormat, setShowRowsFormat] = useState(true);
 
-	const { filters, dispatchFilters } = useFilters();
+	const [filters, dispatchFilters] = useReducer(
+		filtersReducer,
+		FILTERS_INITIAL_STATE
+	);
 
 	const { users, totalUsers, usersError, usersLoading } = useUsers(filters);
 

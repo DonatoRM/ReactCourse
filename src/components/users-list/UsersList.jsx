@@ -12,6 +12,7 @@ import {
 	FILTERS_INITIAL_STATE,
 	filtersReducer
 } from '../../lib/reducers/filtersReducer';
+import { reset } from '../../lib/actions/filtersActions';
 
 const UsersList = () => {
 	const [showRowsFormat, setShowRowsFormat] = useState(true);
@@ -26,9 +27,7 @@ const UsersList = () => {
 	return (
 		<div className={style.wrapper}>
 			<h1 className={style.title}>Listado de usuarios</h1>
-			<UserFormsProviders
-				resetFilters={() => dispatchFilters({ type: FILTERS_ACTIONS.RESET })}
-			>
+			<UserFormsProviders resetFilters={() => dispatchFilters(reset())}>
 				<UsersListFilters
 					search={filters.search}
 					onlyActive={filters.onlyActive}

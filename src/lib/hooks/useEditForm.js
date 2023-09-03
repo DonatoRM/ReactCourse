@@ -1,17 +1,18 @@
 import { useEffect, useReducer } from 'react';
+import { EDIT_FORM_ACTIONS } from '../../constants/editFormActions';
 import { findUserByUserName } from '../api/userApi';
 import { validateName, validateUsername } from '../users/userValidations';
 
 const formValuesReducer = (state, action) => {
 	switch (action.type) {
-		case 'name_changed': {
+		case EDIT_FORM_ACTIONS.NAME: {
 			const error = validateName(action.value);
 			return {
 				...state,
 				name: { value: action.value, error }
 			};
 		}
-		case 'username_changed': {
+		case EDIT_FORM_ACTIONS.USERNAME: {
 			const error = validateUsername(action.value);
 			const isInitial = action.value === action.currentUsername;
 			return {
@@ -23,17 +24,17 @@ const formValuesReducer = (state, action) => {
 				}
 			};
 		}
-		case 'role_changed':
+		case EDIT_FORM_ACTIONS.ROLE:
 			return {
 				...state,
 				role: action.value
 			};
-		case 'active_changed':
+		case EDIT_FORM_ACTIONS.ACTIVE:
 			return {
 				...state,
 				active: action.value
 			};
-		case 'username_error_changed':
+		case EDIT_FORM_ACTIONS.USERNAME_ERROR:
 			return {
 				...state,
 				username: {
@@ -42,7 +43,7 @@ const formValuesReducer = (state, action) => {
 					loading: false
 				}
 			};
-		case 'replace':
+		case EDIT_FORM_ACTIONS.REPLACE:
 			return action.value;
 
 		default:
@@ -124,12 +125,12 @@ const validateUsernameIsAvailable = async (
 	if (abort) return;
 	if (error)
 		return dispatchFormValues({
-			type: 'username_error_changed',
+			type: EDIT_FORM_ACTIONS.USERNAME_ERROR,
 			value: 'Error al validar'
 		});
 
 	dispatchFormValues({
-		type: 'username_error_changed',
+		type: EDIT_FORM_ACTIONS.USERNAME_ERROR,
 		value: user ? 'Ya está en uso' : undefined
 	});
 };

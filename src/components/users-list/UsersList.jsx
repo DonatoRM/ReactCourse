@@ -8,6 +8,7 @@ import UserFormContainer from '../user-forms/UserFormContainer';
 import UserFormsProviders from '../providers/UserFormsProvider';
 import UsersListViewSelector from './UsersListViewSelector';
 import { useState } from 'react';
+import { FILTERS_ACTIONS } from '../../constants/filtersActions';
 
 const UsersList = () => {
 	const [showRowsFormat, setShowRowsFormat] = useState(true);
@@ -20,7 +21,7 @@ const UsersList = () => {
 		<div className={style.wrapper}>
 			<h1 className={style.title}>Listado de usuarios</h1>
 			<UserFormsProviders
-				resetFilters={() => dispatchFilters({ type: 'reset_change' })}
+				resetFilters={() => dispatchFilters({ type: FILTERS_ACTIONS.RESET })}
 			>
 				<UsersListFilters
 					search={filters.search}

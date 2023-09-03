@@ -9,6 +9,7 @@ import { useCreateForm } from '../../lib/hooks/useCreateForm';
 import { useContext, useState } from 'react';
 import { createUser } from '../../lib/api/userApi';
 import { UserFormsContext } from '../../lib/contexts/UserFormsContext';
+import { CREATE_FORM_ACTIONS } from '../../constants/createFormActions';
 
 const UserCreateForm = () => {
 	const { onSuccess } = useContext(UserFormsContext);
@@ -28,7 +29,10 @@ const UserCreateForm = () => {
 					error={name.error}
 					value={name.value}
 					onChange={ev =>
-						dispatchFormValues({ type: 'name_changed', value: ev.target.value })
+						dispatchFormValues({
+							type: CREATE_FORM_ACTIONS.NAME,
+							value: ev.target.value
+						})
 					}
 				></InputText>
 				<InputTextAsync
@@ -41,7 +45,7 @@ const UserCreateForm = () => {
 					value={username.value}
 					onChange={ev =>
 						dispatchFormValues({
-							type: 'username_changed',
+							type: CREATE_FORM_ACTIONS.USERNAME,
 							value: ev.target.value
 						})
 					}

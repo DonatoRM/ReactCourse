@@ -9,6 +9,7 @@ import { useEditForm } from '../../lib/hooks/useEditForm';
 import { useContext, useState } from 'react';
 import { updateUser } from '../../lib/api/userApi';
 import { UserFormsContext } from '../../lib/contexts/UserFormsContext';
+import { EDIT_FORM_ACTIONS } from '../../constants/editFormActions';
 
 const UserEditForm = () => {
 	const { currentUser, onSuccess } = useContext(UserFormsContext);
@@ -40,7 +41,10 @@ const UserEditForm = () => {
 					error={name.error}
 					value={name.value}
 					onChange={ev =>
-						dispatchFormValues({ type: 'name_changed', value: ev.target.value })
+						dispatchFormValues({
+							type: EDIT_FORM_ACTIONS.NAME,
+							value: ev.target.value
+						})
 					}
 				></InputText>
 				<InputTextAsync
@@ -57,7 +61,7 @@ const UserEditForm = () => {
 					value={username.value}
 					onChange={ev =>
 						dispatchFormValues({
-							type: 'username_changed',
+							type: EDIT_FORM_ACTIONS.USERNAME,
 							value: ev.target.value,
 							currentUsername: currentUser.username
 						})
@@ -68,7 +72,10 @@ const UserEditForm = () => {
 				<Select
 					value={role}
 					onChange={ev =>
-						dispatchFormValues({ type: 'role_changed', value: ev.target.value })
+						dispatchFormValues({
+							type: EDIT_FORM_ACTIONS.ROLE,
+							value: ev.target.value
+						})
 					}
 				>
 					<option value={USER_ROLES.TEACHER}>Profesor</option>
@@ -80,7 +87,7 @@ const UserEditForm = () => {
 						checked={active}
 						onChange={ev =>
 							dispatchFormValues({
-								type: 'active_changed',
+								type: EDIT_FORM_ACTIONS.ACTIVE,
 								value: ev.target.checked
 							})
 						}
